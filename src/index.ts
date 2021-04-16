@@ -23,4 +23,9 @@ client.on('message', (channel, tags, message, self) => {
     if (tags.username) {
         testBigFollows(client, channel, tags.username, message, message.indexOf('http') > -1 ? 15 : 25);
     }
+
+	if(message.toLowerCase() === '!hello') {
+		// "@alca, heya!"
+		client.say(channel, `@${tags.username}, heya!`);
+	}
 });
