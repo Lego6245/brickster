@@ -1,4 +1,4 @@
-import { Client, ChatUserstate } from 'tmi.js';
+import { Client } from 'tmi.js';
 import { distance } from "fastest-levenshtein";
 import normalizeString from "./normalizeString";
 

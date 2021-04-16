@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./build/index.js",
+  "type": "module",
   "scripts": {
     "start:dev": "ts-node-dev ./src/index.ts",
     "build": "npx tsc",
@@ -12,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/better-sqlite3": "^5.4.1",
     "@types/node": "^14.14.41",
     "@types/tmi.js": "^1.7.1",
     "dotenv": "^8.2.0",
@@ -19,7 +21,9 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "better-sqlite3": "^7.1.5",
     "fastest-levenshtein": "^1.0.12",
+    "sqlite": "^4.0.21",
     "tmi.js": "^1.8.2"
   }
 }
