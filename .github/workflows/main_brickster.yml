@@ -35,5 +35,5 @@ jobs:
         app-name: brickster
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_82A624B2A9CC411FA52BF3216B2746EF }}
-        package: ./build
+        package: .
 
