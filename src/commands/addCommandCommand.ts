@@ -9,6 +9,7 @@ let createCommandStatement: Statement;
 
 const addCommandCommand: AdvancedCommand = {
     trigger: "!addcommand",
+    aliases: ["!addcom"],
     permissionLevel: PermissionLevel.All,
     reloadCommands: true,
     type: "advanced",

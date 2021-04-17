@@ -9,6 +9,7 @@ let deleteCommandStatement: Statement;
 
 const deleteCommandCommand: AdvancedCommand = {
     trigger: "!deletecommand",
+    aliases: ["!delcom"],
     permissionLevel: PermissionLevel.All,
     reloadCommands: true,
     type: "advanced",

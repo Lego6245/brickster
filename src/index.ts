@@ -20,10 +20,6 @@ const createStatement = db.prepare(`
 	);`);
 createStatement.run();
 
-const deleteCommandStatement = db.prepare(`
-	DELETE FROM commands WHERE command = ?
-`);
-
 // Twitch Bot Setup
 const client = new tmi.Client({
     options: { debug: true },
@@ -61,7 +57,9 @@ client.on("message", (channel, tags, message, self) => {
     const split = message.trim().toLowerCase().split(" ");
     const testCommand = split[0];
     const foundCommand = commands.find(
-        (command) => command.trigger === testCommand
+        (command) =>
+            [command.trigger, ...(command.aliases ?? [])].indexOf(testCommand) >
+            -1
     );
     if (foundCommand && hasPermission(foundCommand.permissionLevel, tags)) {
         if (foundCommand.type == "basic") {

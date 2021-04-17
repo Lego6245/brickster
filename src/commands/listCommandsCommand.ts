@@ -7,6 +7,7 @@ import {
 
 const listCommandCommands: AdvancedCommand = {
     trigger: "!listcommands",
+    aliases: ["!help"],
     permissionLevel: PermissionLevel.All,
     type: "advanced",
     responseFn: (context: CommandContext) => {

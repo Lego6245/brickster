@@ -18,7 +18,9 @@ export interface CommandContext {
 
 export interface CommandBase {
     trigger: string;
+    aliases?: string[];
     permissionLevel: PermissionLevel;
+    type: string;
 }
 
 export interface BasicCommand extends CommandBase {
