@@ -20,7 +20,6 @@ export default function testBigFollows(client: Client, channel: string, username
     }
 
     if (sus_score >= (strength ?? 15)) {
-        console.log(sus_score);
         client.timeout(channel, username, 1, "probably a bigfollows").catch((reason) => {
             // we don't care if this fails
         });

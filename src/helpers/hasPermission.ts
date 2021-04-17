@@ -1,5 +1,5 @@
 import { ChatUserstate } from 'tmi.js';
-import { PermissionLevel } from '../commands/Command';
+import { PermissionLevel } from '../commands/types/Command';
 
 export default function hasPermission(permissionLevel: PermissionLevel, tags: ChatUserstate): boolean {
     switch (permissionLevel) {
