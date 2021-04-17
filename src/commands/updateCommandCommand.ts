@@ -1,22 +1,23 @@
-import { Statement } from "better-sqlite3";
+import { Statement, RunResult } from "better-sqlite3";
 import {
   AdvancedCommand,
   CommandContext,
   PermissionLevel,
 } from "./types/Command";
 
-let createCommandStatement: Statement;
+let updateCommandStatement: Statement;
 
-const addCommandCommand: AdvancedCommand = {
-  trigger: "!addcommand",
+const updateCommandCommand: AdvancedCommand = {
+  trigger: "!updatecommand",
   permissionLevel: PermissionLevel.All,
   reloadCommands: true,
   type: "advanced",
   responseFn: (context: CommandContext) => {
     const { client, channel, splitMessage, db } = context;
-    if (!createCommandStatement) {
-      createCommandStatement = db.prepare(`
-            INSERT INTO commands VALUES (@command, @is_mod, @response)
+    if (!updateCommandStatement) {
+      updateCommandStatement = db.prepare(`
+            UPDATE commands SET (is_mod, response) = (@is_mod, @response)
+            WHERE command = @command
             `);
     }
     if (splitMessage.length < 3) {
@@ -30,8 +31,9 @@ const addCommandCommand: AdvancedCommand = {
     const response = splitMessage
       .slice(isPermissionFlagProvided ? 3 : 2)
       .join(" ");
+    let changes: RunResult;
     try {
-      createCommandStatement.run({
+      changes = updateCommandStatement.run({
         command: splitMessage[1],
         is_mod: permissionFlag,
         response: response,
@@ -40,11 +42,15 @@ const addCommandCommand: AdvancedCommand = {
       client.say(channel, `Error executing command, response ${e}`);
       return;
     }
-    client.say(
-      channel,
-      `Added command ${splitMessage[1]} with permissionlevel ${permissionFlag} and message "${response}"`
-    );
+    if (changes.changes > 0) {
+      client.say(
+        channel,
+        `Updated command ${splitMessage[1]} with permissionlevel ${permissionFlag} and message "${response}"`
+      );
+    } else {
+      client.say(channel, "No such command");
+    }
   },
 };
 
-export default addCommandCommand;
+export default updateCommandCommand;
