@@ -26,13 +26,13 @@ const deleteCommandStatement = db.prepare(`
 
 // Twitch Bot Setup
 const client = new tmi.Client({
-  options: { debug: true },
-  connection: { reconnect: true },
-  identity: {
-    username: process.env.BOT_USERNAME,
-    password: process.env.OAUTH_KEY,
-  },
-  channels: [process.env.CHANNEL ?? ""],
+    options: { debug: true },
+    connection: { reconnect: true },
+    identity: {
+        username: process.env.BOT_USERNAME,
+        password: process.env.OAUTH_KEY,
+    },
+    channels: [process.env.CHANNEL ?? ""],
 });
 
 let commands: Command[] = loadCommands(db);
@@ -40,44 +40,44 @@ let commands: Command[] = loadCommands(db);
 client.connect();
 
 client.on("message", (channel, tags, message, self) => {
-  // Ignore echoed messages.
-  if (self) return;
+    // Ignore echoed messages.
+    if (self) return;
 
-  // check for big follows + some variants. this shouldn't catch most memes.
-  if (tags.username) {
-    testBigFollows(
-      client,
-      channel,
-      tags.username,
-      message,
-      message.indexOf("http") > -1 ? 15 : 25
-    );
+    // check for big follows + some variants. this shouldn't catch most memes.
+    if (tags.username) {
+        testBigFollows(
+            client,
+            channel,
+            tags.username,
+            message,
+            message.indexOf("http") > -1 ? 15 : 25
+        );
 
-    // anti pyramid tech
-    checkForPyramid(client, channel, message);
-  }
-
-  // command handling
-  const split = message.trim().toLowerCase().split(" ");
-  const testCommand = split[0];
-  const foundCommand = commands.find(
-    (command) => command.trigger === testCommand
-  );
-  if (foundCommand && hasPermission(foundCommand.permissionLevel, tags)) {
-    if (foundCommand.type == "basic") {
-      client.say(channel, foundCommand.textResponse);
-    } else {
-      foundCommand.responseFn({
-        client,
-        channel,
-        db,
-        commandList: commands,
-        tags,
-        splitMessage: split,
-      });
-      if (foundCommand.reloadCommands) {
-        commands = loadCommands(db);
-      }
+        // anti pyramid tech
+        checkForPyramid(client, channel, message);
     }
-  }
+
+    // command handling
+    const split = message.trim().toLowerCase().split(" ");
+    const testCommand = split[0];
+    const foundCommand = commands.find(
+        (command) => command.trigger === testCommand
+    );
+    if (foundCommand && hasPermission(foundCommand.permissionLevel, tags)) {
+        if (foundCommand.type == "basic") {
+            client.say(channel, foundCommand.textResponse);
+        } else {
+            foundCommand.responseFn({
+                client,
+                channel,
+                db,
+                commandList: commands,
+                tags,
+                splitMessage: split,
+            });
+            if (foundCommand.reloadCommands) {
+                commands = loadCommands(db);
+            }
+        }
+    }
 });
