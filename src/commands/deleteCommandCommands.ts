@@ -16,8 +16,8 @@ const deleteCommandCommand: AdvancedCommand = {
     const { client, channel, splitMessage, db } = context;
     if (!deleteCommandStatement) {
       deleteCommandStatement = db.prepare(`
-            INSERT INTO commands VALUES (@command, @is_mod, @response)
-            `);
+        DELETE FROM commands WHERE command = ?
+      `);
     }
     if (splitMessage.length < 2) {
       client.say(channel, "You're missing some arguments.");
