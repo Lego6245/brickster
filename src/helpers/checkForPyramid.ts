@@ -13,7 +13,6 @@ let pyramidState: PyramidState;
 export default function checkForPyramid(
   client: Client,
   channel: string,
-  username: string,
   message: string
 ) {
   const messageBlocks = message
@@ -62,4 +61,8 @@ export default function checkForPyramid(
       previousLength = 0;
     }
   }
+  console.log("pyramid state");
+  console.log(potentialToken);
+  console.log(pyramidState);
+  console.log(previousLength);
 }

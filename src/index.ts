@@ -54,7 +54,7 @@ client.on("message", (channel, tags, message, self) => {
     );
 
     // anti pyramid tech
-    checkForPyramid(client, channel, tags.username, message);
+    checkForPyramid(client, channel, message);
   }
 
   // command handling
