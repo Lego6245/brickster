@@ -17,11 +17,16 @@ export default function testBigFollows(
     if (normalizedMessage.indexOf("wannabecome") > -1) {
         sus_score += 5;
     }
-    if (
-        normalizedMessage.indexOf("followers") > -1 &&
-        normalizedMessage.indexOf("prime") > -1 &&
-        normalizedMessage.indexOf("viewers") > -1
-    ) {
+    if (normalizedMessage.indexOf("follower") > -1) {
+        sus_score += 2;
+    }
+    if (normalizedMessage.indexOf("prime") > -1) {
+        sus_score += 2;
+    }
+    if (normalizedMessage.indexOf("viewer") > -1) {
+        sus_score += 2;
+    }
+    if (normalizedMessage.indexOf("clckru") > -1) {
         sus_score += 5;
     }
 
