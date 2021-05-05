@@ -10,6 +10,7 @@ export default function testBigFollows(
     strength?: number
 ) {
     const normalizedMessage = normalizeString(message);
+    // don't think it don't say it don't think it don't say it
     let sus_score = 0;
     if (normalizedMessage.indexOf("bigfollow") > -1) {
         sus_score += 5;

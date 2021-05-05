@@ -54,8 +54,8 @@ client.on("message", (channel, tags, message, self) => {
     }
 
     // command handling
-    const split = message.trim().toLowerCase().split(" ");
-    const testCommand = split[0];
+    const split = message.trim().split(" ");
+    const testCommand = split[0].toLowerCase();
     const foundCommand = commands.find(
         (command) =>
             [command.trigger, ...(command.aliases ?? [])].indexOf(testCommand) >

@@ -24,6 +24,7 @@ const updateCommandCommand: AdvancedCommand = {
         if (splitMessage.length < 3) {
             client.say(channel, "You're missing some arguments.");
         }
+        const commandToUpdate = splitMessage[1].toLowerCase();
         const permissionValue = parseInt(splitMessage[2]);
         const isPermissionFlagProvided = permissionValue in PermissionLevel;
         const permissionFlag = isPermissionFlagProvided
@@ -35,7 +36,7 @@ const updateCommandCommand: AdvancedCommand = {
         let changes: RunResult;
         try {
             changes = updateCommandStatement.run({
-                command: splitMessage[1],
+                command: commandToUpdate,
                 is_mod: permissionFlag,
                 response: response,
             });
@@ -46,7 +47,7 @@ const updateCommandCommand: AdvancedCommand = {
         if (changes.changes > 0) {
             client.say(
                 channel,
-                `Updated command ${splitMessage[1]} with permissionlevel ${permissionFlag} and message "${response}"`
+                `Updated command ${commandToUpdate} with permissionlevel ${permissionFlag} and message "${response}"`
             );
         } else {
             client.say(channel, "No such command");

@@ -23,15 +23,16 @@ const deleteCommandCommand: AdvancedCommand = {
         if (splitMessage.length < 2) {
             client.say(channel, "You're missing some arguments.");
         }
+        const commandToDelete = splitMessage[1].toLowerCase();
         let changes: Database.RunResult;
         try {
-            changes = deleteCommandStatement.run(splitMessage[1]);
+            changes = deleteCommandStatement.run(commandToDelete);
         } catch (e) {
             client.say(channel, `error executing command, response ${e}`);
             return;
         }
         if (changes.changes > 0) {
-            client.say(channel, `removed command ${splitMessage[1]}`);
+            client.say(channel, `removed command ${commandToDelete}`);
         } else {
             client.say(channel, "no such command");
         }

@@ -23,6 +23,7 @@ const addCommandCommand: AdvancedCommand = {
         if (splitMessage.length < 3) {
             client.say(channel, "You're missing some arguments.");
         }
+        const commandToAdd = splitMessage[1].toLowerCase();
         const permissionValue = parseInt(splitMessage[2]);
         const isPermissionFlagProvided = permissionValue in PermissionLevel;
         const permissionFlag = isPermissionFlagProvided
@@ -33,7 +34,7 @@ const addCommandCommand: AdvancedCommand = {
             .join(" ");
         try {
             createCommandStatement.run({
-                command: splitMessage[1],
+                command: commandToAdd,
                 is_mod: permissionFlag,
                 response: response,
             });
@@ -43,7 +44,7 @@ const addCommandCommand: AdvancedCommand = {
         }
         client.say(
             channel,
-            `Added command ${splitMessage[1]} with permissionlevel ${permissionFlag} and message "${response}"`
+            `Added command ${commandToAdd} with permissionlevel ${permissionFlag} and message "${response}"`
         );
     },
 };
